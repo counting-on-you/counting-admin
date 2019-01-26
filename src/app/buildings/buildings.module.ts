@@ -1,3 +1,4 @@
+import { MaterialModule } from './../material-module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,7 +9,8 @@ import { BuildingComponent } from './components/building.component';
   declarations: [BuildingComponent],
   imports: [
     CommonModule,
-    BuildingsRoutingModule
+    BuildingsRoutingModule,
+    MaterialModule
   ]
 })
 export class BuildingsModule { }

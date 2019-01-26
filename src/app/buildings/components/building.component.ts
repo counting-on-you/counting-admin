@@ -1,6 +1,7 @@
+import { Building } from './../../models/building';
+import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-building',
@@ -8,29 +9,38 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
     styleUrls: ['./building.component.css']
 })
 export class BuildingComponent implements OnInit {
-    private _name: string;
 
-    movies = [
-        'Episode I - The Phantom Menace',
-        'Episode II - Attack of the Clones',
-        'Episode III - Revenge of the Sith',
-        'Episode IV - A New Hope',
-        'Episode V - The Empire Strikes Back',
-        'Episode VI - Return of the Jedi',
-        'Episode VII - The Force Awakens',
-        'Episode VIII - The Last Jedi'
-    ];
+    private _name: string = null;
 
-    constructor(private activeRoute: ActivatedRoute) { }
+    private _buildings;
+    private _floors;
+
+    constructor(private activeRoute: ActivatedRoute, private fb: FirebaseService) { }
 
     ngOnInit() {
         this.activeRoute.params.subscribe(params => {
             this._name = params.name;
+            this.updateFloors();
+        });
+
+        this.fb.getBuildings().subscribe((data: Building[]) => {
+            this._buildings = {};
+            data.forEach(item => {
+                this._buildings[this.transformTitle(item.name)] = { ...item };
+            });
+
+            this.updateFloors();
+
         });
     }
 
-    drop(event: CdkDragDrop<string[]>) {
-        console.log(event);
-        moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+    updateFloors(): void {
+        if (this._buildings && this._name) {
+            this._floors = this._buildings[this._name]['floors'];
+        }
+    }
+
+    transformTitle(title: string): string {
+        return title.replace(' ', '-').toLowerCase();
     }
 }
