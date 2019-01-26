@@ -29,7 +29,6 @@ export class AppComponent implements OnDestroy {
                     link: this.transformTitle(item.name)
                 };
             });
-            console.log(this._items);
         });
     }
 
