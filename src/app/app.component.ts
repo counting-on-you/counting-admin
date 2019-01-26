@@ -1,8 +1,8 @@
+import { FirebaseService } from './services/firebase.service';
 import { Building } from './models/building';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Component({
     selector: 'app-root',
@@ -17,13 +17,12 @@ export class AppComponent implements OnDestroy {
 
     private _mobileQueryListener: () => void;
 
-    constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, db: AngularFireDatabase) {
+    constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, fb: FirebaseService) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
 
-        this.items = db.list<Building>('/building').valueChanges();
-        this.items.subscribe((data: Building[]) => {
+        fb.getBuildings().subscribe((data: Building[]) => {
             this._items = data.map(item => {
                 return {
                     ...item,
