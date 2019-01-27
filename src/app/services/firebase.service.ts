@@ -1,4 +1,4 @@
-import { Building } from './../models/building';
+import { Building, Floor } from './../models/building';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ export class FirebaseService {
     items: Observable<Building[]>;
     buildings: AngularFireList<Building>;
 
-    constructor(db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase) {
         this.buildings = db.list<Building>('/buildings');
         this.items = this.buildings.valueChanges();
     }
@@ -26,6 +26,14 @@ export class FirebaseService {
 
     deleteBuilding(name: string): void {
         this.buildings.set(this.transform(name), null);
+    }
+
+    addFloor(name: string, f: Floor): void {
+        this.db.list<Floor>('/buildings/' + this.transform(name) + '/floors').set(f.name, f);
+    }
+
+    deleteFloor(building: string, name: string): void {
+        this.db.list<Floor>('/buildings/' + this.transform(building) + '/floors').set(name, null);
     }
 
 

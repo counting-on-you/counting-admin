@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-landing',

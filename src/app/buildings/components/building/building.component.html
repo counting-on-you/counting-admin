@@ -1,9 +1,67 @@
-<div class="holder">
-    <div class="card" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let floor of _floors | keyvalue">{{floor.value.name}}</li>
-        </ul>
+
+<h1 style="text-align: center;">{{_name.toUpperCase()}}</h1>
+
+<div class="d-flex flex-row justify-content-around flex-wrap">
+    <div class="card p-2" style="width: 18rem;" *ngFor="let floor of _floors | keyvalue">
+        <div class="card-body">
+            <h5 class="card-title">{{floor.value.name}}</h5>
+            <p class="card-text" *ngFor="let pid of floor.value.pi_ids | keyvalue">{{pid.key}}</p>
+            <div class="holder">
+                <a (click)="deleteConfirm(deleteContent, floor.value.name)" class="btn btn-danger" style="margin-left:1em">  <i class="far fa-trash-alt inside-btn"> Remove</i></a>
+            </div>
+        </div>
+    </div>
+     <div class="p-2 plus-holder" style="width: 18rem;" >
+        <div class="plus-holder">
+            <span (click)="openVerticallyCentered(content)" style="align-items:center"><i class="fas fa-plus-circle fa-5x plus"></i></span>
+        </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Floor</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+  <div class="form-group">
+    <label for="inputName">Floor Name</label>
+    <input [(ngModel)]="_newItem.name" type="text" class="form-control" id="inputName" name="inputName" placeholder="Floor One">
+  </div>
+  <div class="form-group">
+    <label for="inputPI">PI Identifiers</label>
+    <input *ngFor="let myNum of eids_count" [(ngModel)]="newPIs[myNum]" type="text" class="form-control" id="inputPI" [ngModelOptions]="{standalone: true}" placeholder="">
+    <h3 (click)="eids_count.push(eids_count.length)"class="list-group-item"> <strong>+</strong></h3>
+    
+  </div>
+  
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-dark" (click)="submit();modal.close('Save click')">Submit</button>
+  </div>
+</form>
+</div>
+</ng-template>
+
+<ng-template #deleteContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Floor deletion</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">{{selected}}</span>?</strong></p>
+    <p>All information associated to this building will be permanently deleted.
+    <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="delete(selected);modal.close('Ok click')">Ok</button>
+  </div>
+</ng-template>
 
 

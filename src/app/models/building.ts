@@ -6,7 +6,7 @@ export interface Building {
     pi_ids?: any[];
 }
 
-interface Floor {
+export interface Floor {
     name: string;
-    pi_ids: string[];
+    pi_ids: {};
 }
