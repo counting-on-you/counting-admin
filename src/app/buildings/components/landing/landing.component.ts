@@ -20,7 +20,7 @@ export class LandingComponent implements OnInit {
     items: Observable<Building[]>;
     private _items: Building[];
 
-    private _newItem: Building = {
+    private _newItem: Building | any = {
         name: '',
         address: '',
         floors: [{
@@ -40,7 +40,7 @@ export class LandingComponent implements OnInit {
     }
 
     transformTitle(title: string): string {
-        return title.replace(' ', '-').toLowerCase();
+        return title.replace(/ /g, '_').toLowerCase();
     }
 
     ngOnInit() {
@@ -58,6 +58,13 @@ export class LandingComponent implements OnInit {
     submit(): void {
         console.log('Submitting');
 
+        const newFloor: any = this._newItem.floors[0];
+        console.log(newFloor);
+        this._newItem.floors = {
+            [newFloor.name]: {
+                ...newFloor
+            },
+        };
         this.fb.addBuilding(this._newItem);
 
         // Clear newItem

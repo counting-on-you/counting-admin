@@ -38,6 +38,6 @@ export class FirebaseService {
 
 
     transform(name: string): string {
-        return name.toLowerCase().replace(' ', '_');
+        return name.toLowerCase().replace(/ /g, '_');
     }
 }

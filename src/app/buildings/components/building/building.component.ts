@@ -94,6 +94,6 @@ export class BuildingComponent implements OnInit {
     }
 
     transformTitle(title: string): string {
-        return title.replace(' ', '-').toLowerCase();
+        return title.replace(/ /g, '_').toLowerCase();
     }
 }
