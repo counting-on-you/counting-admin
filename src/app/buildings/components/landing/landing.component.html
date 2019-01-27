@@ -1,0 +1,68 @@
+
+<div class="d-flex flex-row justify-content-around flex-wrap">
+    <div class="card p-2" style="width: 18rem;" *ngFor="let item of _items">
+        <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p class="card-text">{{item.address}}</p>
+            <div class="holder">
+                <a [routerLink]="item.link" class="btn btn-secondary"> <i class="far fa-building inside-btn"> Floors</i></a>
+                <a (click)="deleteConfirm(deleteContent, item.name)" class="btn btn-danger" style="margin-left:1em">  <i class="far fa-trash-alt inside-btn"> Remove</i></a>
+            </div>
+        </div>
+    </div>
+     <div class="p-2 plus-holder" style="width: 18rem;" >
+        <div class="plus-holder">
+            <span (click)="openVerticallyCentered(content)" style="align-items:center"><i class="fas fa-plus-circle fa-5x plus"></i></span>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Building</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+  <div class="form-group">
+    <label for="inputName">Name</label>
+    <input [(ngModel)]="_newItem.name" type="text" class="form-control" id="inputName" name="inputName">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input [(ngModel)]="_newItem.address" type="text" class="form-control" id="inputAddress" name="inputAddress">
+  </div>
+
+  <div class="form-group">
+    <label for="inputAddress">Starting Floor</label>
+    <input [(ngModel)]="_newItem.floors[0].name" type="text" class="form-control" id="inputAddress" name="inputFloor" placeholder="Floor One">
+  </div>
+  
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-dark" (click)="submit();modal.close('Save click')">Submit</button>
+  </div>
+</form>
+</div>
+</ng-template>
+
+<ng-template #deleteContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Building deletion</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to delete <span class="text-primary">{{selected}}</span>?</strong></p>
+    <p>All information associated to this building will be permanently deleted.
+    <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="delete(selected);modal.close('Ok click')">Ok</button>
+  </div>
+</ng-template>

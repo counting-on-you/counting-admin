@@ -1,10 +1,12 @@
 export interface Building {
     name: string;
-    floors: Floor[];
+    address: string;
+    floors?: Floor[];
     link?: string;
+    pi_ids?: any[];
 }
 
 interface Floor {
-    blocks: number[];
+    name: string;
     pi_ids: string[];
 }

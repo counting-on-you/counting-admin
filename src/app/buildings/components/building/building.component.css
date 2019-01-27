@@ -1,0 +1,8 @@
+.card {
+    margin: 1em;
+}
+
+.holder {
+    display: flex;
+    justify-content: space-evenly;
+}

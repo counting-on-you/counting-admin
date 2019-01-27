@@ -1,16 +1,19 @@
-import { MaterialModule } from './../material-module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BuildingsRoutingModule } from './buildings-routing.module';
-import { BuildingComponent } from './components/building.component';
+import { BuildingComponent } from './components/building/building.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [BuildingComponent],
+  declarations: [BuildingComponent, LandingComponent],
   imports: [
     CommonModule,
     BuildingsRoutingModule,
-    MaterialModule
+    NgbModule,
+    FormsModule
   ]
 })
 export class BuildingsModule { }

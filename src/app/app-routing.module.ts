@@ -6,6 +6,7 @@ const routes: Routes = [
         path: 'building',
         loadChildren: './buildings/buildings.module#BuildingsModule'
       },
+      { path: '',   redirectTo: '/building', pathMatch: 'full' }
 ];
 
 @NgModule({

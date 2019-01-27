@@ -1,0 +1,22 @@
+.inside-btn {
+    color: white;
+  }
+
+  .plus {
+      color: #28a745;
+  }
+
+  .plus-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center
+  }
+
+.card {
+    margin: 1em;
+}
+
+.holder {
+    display: flex;
+    justify-content: space-evenly;
+}

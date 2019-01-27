@@ -1,5 +1,5 @@
-import { Building } from './../../models/building';
-import { FirebaseService } from './../../services/firebase.service';
+import { Building } from '../../../models/building';
+import { FirebaseService } from '../../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -37,6 +37,7 @@ export class BuildingComponent implements OnInit {
     updateFloors(): void {
         if (this._buildings && this._name) {
             this._floors = this._buildings[this._name]['floors'];
+            console.log(this._floors);
         }
     }
 
