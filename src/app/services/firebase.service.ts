@@ -12,7 +12,7 @@ export class FirebaseService {
     buildings: AngularFireList<Building>;
 
     constructor(private db: AngularFireDatabase) {
-        this.buildings = db.list<Building>('/buildings');
+        this.buildings = db.list<Building>('/building');
         this.items = this.buildings.valueChanges();
     }
 
