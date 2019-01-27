@@ -29,11 +29,11 @@ export class FirebaseService {
     }
 
     addFloor(name: string, f: Floor): void {
-        this.db.list<Floor>('/buildings/' + this.transform(name) + '/floors').set(f.name, f);
+        this.db.list<Floor>('/building/' + this.transform(name) + '/floors').set(f.name, f);
     }
 
     deleteFloor(building: string, name: string): void {
-        this.db.list<Floor>('/buildings/' + this.transform(building) + '/floors').set(name, null);
+        this.db.list<Floor>('/building/' + this.transform(building) + '/floors').set(name, null);
     }
 
 
