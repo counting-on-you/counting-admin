@@ -5,7 +5,7 @@
             <h5 class="card-title">{{item.name}}</h5>
             <p class="card-text">{{item.address}}</p>
             <div class="holder">
-                <a [routerLink]="item.link" class="btn btn-secondary"> <i class="far fa-building inside-btn"> Floors</i></a>
+                <a [routerLink]="item.link" [queryParams]="{name: item.name}"class="btn btn-secondary"> <i class="far fa-building inside-btn"> Floors</i></a>
                 <a (click)="deleteConfirm(deleteContent, item.name)" class="btn btn-danger" style="margin-left:1em">  <i class="far fa-trash-alt inside-btn"> Remove</i></a>
             </div>
         </div>

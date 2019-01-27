@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class BuildingComponent implements OnInit {
 
     private _name: string = null;
+    private formatName: string = null;
     selected: string;
     newPIs: string[] = [];
     eids_count: number[] = [0];
@@ -33,6 +34,10 @@ export class BuildingComponent implements OnInit {
         this.activeRoute.params.subscribe(params => {
             this._name = params.name;
             this.updateFloors();
+        });
+
+        this.activeRoute.queryParams.subscribe(params => {
+            this.formatName = params.name;
         });
 
         this.fb.getBuildings().subscribe((data: Building[]) => {
