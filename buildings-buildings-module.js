@@ -198,7 +198,7 @@ var BuildingComponent = /** @class */ (function () {
         }
     };
     BuildingComponent.prototype.transformTitle = function (title) {
-        return title.replace(' ', '-').toLowerCase();
+        return title.replace(/ /g, '_').toLowerCase();
     };
     BuildingComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -275,7 +275,7 @@ var LandingComponent = /** @class */ (function () {
         this.modalService.open(content, { centered: true });
     };
     LandingComponent.prototype.transformTitle = function (title) {
-        return title.replace(' ', '-').toLowerCase();
+        return title.replace(/ /g, '_').toLowerCase();
     };
     LandingComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -287,7 +287,13 @@ var LandingComponent = /** @class */ (function () {
         });
     };
     LandingComponent.prototype.submit = function () {
+        var _a;
         console.log('Submitting');
+        var newFloor = this._newItem.floors[0];
+        console.log(newFloor);
+        this._newItem.floors = (_a = {},
+            _a[newFloor.name] = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, newFloor),
+            _a);
         this.fb.addBuilding(this._newItem);
         // Clear newItem
         this._newItem = {
@@ -359,7 +365,7 @@ var FirebaseService = /** @class */ (function () {
         this.db.list('/building/' + this.transform(building) + '/floors').set(name, null);
     };
     FirebaseService.prototype.transform = function (name) {
-        return name.toLowerCase().replace(' ', '_');
+        return name.toLowerCase().replace(/ /g, '_');
     };
     FirebaseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
